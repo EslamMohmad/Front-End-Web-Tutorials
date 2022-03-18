@@ -3,10 +3,20 @@
   margin: 0;
   box-sizing: border-box;
   text-transform: capitalize;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 :root {
-  --purpuleColor: #fe71b4;
+  --lightPurpuleColor: #fe71b4;
+  --darkPurpuleColor: #8b0b7c;
+}
+
+.fas, .fa-solid {
+  cursor: pointer;
+}
+
+.fas:active, .fa-solid:active {
+  transform: scale(0.90);
 }
 
 .container {
@@ -36,7 +46,7 @@
 .app .music {
   display: flex;
   flex-direction: column;
-  margin: 25px 0;
+  margin: 25px 0 15px 0;
   
 }
 
@@ -69,31 +79,46 @@
   text-align: center;
 }
 
+.music .musicBar {
+  height: 15px;
+  position: relative;
+}
+
 .music .musicBar .bar{
   background-color: lightgray;
   height: 3px;
   border-radius: 3px;
   position: relative;
+  cursor: pointer;
 }
 
-.music .musicBar .bar .cursor {
+.music .musicBar .bar .barWidth {
+  width: 3.5%;
+  height: 100%;
+  background-color: var(--lightPurpuleColor);
+  position: relative;
+}
+
+.music .musicBar .bar .barWidth .cursor {
   width: 10px;
   height: 10px;
-  background-color: var(--purpuleColor);
   border-radius: 50%;
   position: absolute;
   top: -100%;
-  left: 40%;
+  right: 0;
+  background-color: white;
+  border: 2px solid var(--lightPurpuleColor);
+  cursor: pointer;
 }
 
-.music .musicBar .bar .time  {
+.music .musicBar .time  {
   position: absolute;
-  top: 120%;
+  top: 50%;
   color: gray;
   font-size: 14px;
 }
 
-.music .musicBar .bar .duration {
+.music .musicBar .duration {
   right: 0;
 }
 
@@ -101,8 +126,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--purpuleColor);
+  color: var(--lightPurpuleColor);
 }
+
 
 .foot .music-controlls {
   width: 50%;
@@ -117,6 +143,6 @@
   line-height: 50px;
   border-radius: 50%;
   color: white;
-  background-color: var(--purpuleColor);
+  background-color: var(--lightPurpuleColor);
   text-align: center;
 }
