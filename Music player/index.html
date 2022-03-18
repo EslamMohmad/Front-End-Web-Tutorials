@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="icons/css/all.min.css"/>
+  <link rel="stylesheet" href="css/index.css">
+  <title>Music player </title>
+</head>
+<body>
+	<div class="container">
+	  <div class="app">
+	    <div class="top">
+	      <div class="minimize">
+	        <i class=" fas fa-angle-down"></i>
+	      </div>
+	      <p>now playing</p>
+	      <div class="options">
+	        <i class=" fas fa-ellipsis-h"></i>
+	      </div>
+	    </div>
+	    <div class="music">
+	      <div class="img">
+	        <img src="imgs/img1.jpg"/>
+	      </div>
+	      <div class="details">
+	        <h1 class="artist">24kGoldn</h1>
+	        <h3 class="album">Mood (Lyrics) ft. Iann Dior</h3>
+	      </div>
+	      <div class="musicBar">
+	        <audio class="audio" hidden muted>
+	          <source src="sounds/abo.mp3" type="audio/mpeg">
+	        </audio>
+	        <div class="bar">
+	          <span class="cursor"></span>
+	          <span class="time currentTime">0:00</span>
+	          <span class="time duration"></span>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="foot">
+	      <div class="mood">
+	        <i class="fas fa-random"></i>
+	      </div>
+	      <div class="music-controlls">
+	        <i class="fas fa-angle-double-left"></i>
+	        <i class="fas fa-caret-right run"></i>
+	        <i class="fas fa-angle-double-right"></i>
+	      </div>
+	      <div class="music-list">
+	        <i class="fas fa-stream"></i>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<script src="js/index.js"></script>
+</body>
+</html>

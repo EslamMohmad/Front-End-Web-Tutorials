@@ -1,0 +1,122 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-transform: capitalize;
+}
+
+:root {
+  --purpuleColor: #fe71b4;
+}
+
+.container {
+  height: 100vh;
+  background-image: linear-gradient(#fe71b4,#8b0b7c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  background-color: white;
+  border-radius: 10px;
+  padding:20px 25px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 5px lightgray;
+}
+
+.app .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app .music {
+  display: flex;
+  flex-direction: column;
+  margin: 25px 0;
+  
+}
+
+.music .img {
+  width: 100%;
+  height: 240px;
+}
+
+.music .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 5px black;
+}
+
+.music .details {
+  margin: 20px 0;
+}
+
+.music h3 {
+  font-weight: 300;
+  text-align: center;
+  color: gray;
+  margin-top: 5px;
+}
+
+.music h1 {
+  font-weight: 400;
+  text-align: center;
+}
+
+.music .musicBar .bar{
+  background-color: lightgray;
+  height: 3px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.music .musicBar .bar .cursor {
+  width: 10px;
+  height: 10px;
+  background-color: var(--purpuleColor);
+  border-radius: 50%;
+  position: absolute;
+  top: -100%;
+  left: 40%;
+}
+
+.music .musicBar .bar .time  {
+  position: absolute;
+  top: 120%;
+  color: gray;
+  font-size: 14px;
+}
+
+.music .musicBar .bar .duration {
+  right: 0;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--purpuleColor);
+}
+
+.foot .music-controlls {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.foot .music-controlls .run {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  color: white;
+  background-color: var(--purpuleColor);
+  text-align: center;
+}

@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.bord {
+    height:100vh;
+    width: 100%;
+}
+.bord:nth-of-type(1) {
+    background-image: url(home.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position-x: center;
+    overflow: hidden;
+}
+.bord h1 {
+    font-size: 10vw;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    text-transform: capitalize;
+}
+.bord:nth-of-type(2) {
+    background-color: rgb(32, 32, 32);
+}

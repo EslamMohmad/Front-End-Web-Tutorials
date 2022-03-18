@@ -1,0 +1,91 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .calculator {
+  width: 80%;
+  max-width: 300px;
+  padding: 10px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.calculator .main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
+
+#input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 45px;
+  padding: 5px;
+  width: 60%;
+}
+
+.numbers {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  column-gap:5%;
+  row-gap: 10px;
+  width: 60%;
+}
+
+.numbers .num {
+  border: 1px solid black ;
+  width: 30%;
+  height: 45px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  row-gap: 10px;
+  width: 17%;
+}
+
+.options .ops {
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  border: 1px solid black ;
+}
+
+.operators {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 10px;
+  width: 17%;
+}
+
+.operators .opr {
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.click:active {
+  color: white;
+  background-color: #414141;
+}

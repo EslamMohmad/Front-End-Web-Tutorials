@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
+  <title>Tic Tac Toe Game</title>
+</head>
+<body>
+	<div class="container">
+   <div class="gamePlay active">
+    <button class="mood sigle">sigle player</button>
+    <button class="mood multi">multi player</button>
+  </div>
+	 <div class="start">
+	   <h1>Tic Tac Toe</h1>
+	   <h3>select which you want to be</h3>
+	   <div class="options">
+	     <button type="button" id="x">player (x)</button>
+	     <button type="button" id="o">player (o)</button>
+	   </div>
+	 </div>
+	 <div class="game">
+	   <div class="players">
+	     <div class="bord"></div>
+	     <div class="player player-x">player x</div>
+	     <div class="player player-o">player o</div>
+	   </div>
+	   <div class="grid">
+	     <div class="disc"></div>
+	     <div class="disc"></div>
+	     <div class="disc"></div>
+	     <div class="disc"></div>
+	     <div class="disc"></div>
+	     <div class="disc"></div>
+	     <div class="disc"></div>
+	     <div class="disc"></div>
+	     <div class="disc"></div>
+	   </div>
+	 </div>
+	 <div class="winner msgBox">
+	   <h3>the winner is (<span></span>) player</h3>
+	   <button class="playAgain">play again</button>
+	 </div>
+	 <div class="noWinner msgBox">
+	   <h3>there is no winner</h3>
+	   <button class="playAgain">play again</button>
+	 </div>
+	 <div class="results">
+	   <p class="num x">x : <span>0</span></p>
+	   <p class="num o">o : <span>0</span></p>
+	 </div>
+	</div>
+	
+	<script src="js/index.js"></script>
+</body>
+</html>

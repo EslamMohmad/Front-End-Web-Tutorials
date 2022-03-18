@@ -1,0 +1,131 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-transform: capitalize;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+   border: 1px solid black;
+   width: 300px;
+   max-width: 80%;
+}
+
+.app h1 {
+  padding:10px 10px;
+   border-bottom: 1px solid black;
+}
+
+.add {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+
+#input {
+  width: 80%;
+  padding: 10px;
+}
+
+.add button {
+  width: 15%;
+  color: white;
+  background-color: #3e82e8;
+  border: none;
+  outline: none;
+  font-size: 25px;
+}
+.add button:active {
+  background-color: #165ece;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+}
+
+.tasks .no-task {
+  background-color: lightgray;
+  text-align: center;
+  color: gray;
+  display: block;
+  padding: 10px;
+}
+
+.tasks .no-task.active {
+  display: none;
+}
+
+.tasks .real-task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  position: relative;
+  z-index: 2;
+  padding: 10px;
+}
+
+.tasks .real-task:not(:last-child) {
+  border-bottom: 1px solid black;
+}
+
+.real-task p {
+  width: 80%;
+}
+
+
+.real-task .delete-icon {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: white;
+  background-color: #eb083c;
+}
+
+.real-task p {
+  background-color: transparent;
+   padding: 5px;
+}
+
+.real-task.active p {
+  text-decoration: line-through;
+  font-style: italic;
+  color: gray;
+  background-color: lightgray;
+}
+
+.options {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid black;
+}
+
+.options .completedTasks span {
+  color: #4fad13;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.options .clear {
+  padding: 7px 13px;
+  border: none;
+  outline: none;
+  background-color: #ac29e0;
+  color: white
+}
+
+.options .clear:active {
+  background-color: #970bb8;
+}

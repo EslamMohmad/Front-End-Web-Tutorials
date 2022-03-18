@@ -1,0 +1,224 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-transform: capitalize;
+}
+
+:root {
+  --lightBlueColor: #27bbe0;
+  --darkBlueColor : #198eab;
+}
+
+.container {
+  margin: auto;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--lightBlueColor);
+}
+
+.results {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  opacity: 0;
+}
+
+.results.active {
+  opacity: 1;
+}
+
+.gamePlay {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  display: none;
+  position: relative;
+  z-index: 1;
+}
+
+.gamePlay.active {
+  display: block;
+  z-index: 5;
+}
+
+.gamePlay button {
+  color: white;
+  background-color: var(--lightBlueColor);
+  padding: 15px 25px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+
+.gamePlay button:first-child {
+  margin-right: 10px;
+}
+
+.gamePlay button:active {
+  background-color: var(--darkBlueColor);
+}
+
+.start {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  display: none;
+  width: 80%;
+  max-width: 400px;
+  z-index: 1;
+}
+
+.start.active {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+  z-index: 4;
+}
+
+.start h1 {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 10px;
+}
+
+.start h3 {
+  margin: 15px 0;
+}
+
+.start .options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.options button {
+  padding: 15px 25px;
+  background-color: var(--lightBlueColor);
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  color: white;
+  font-weight: bolder;
+}
+
+.options button:active {
+  background-color: var(--darkBlueColor);
+  transform: scale(0.95);
+}
+
+.game {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  z-index: 3;
+}
+.game.active {
+ display: flex;
+ z-index: 4;
+}
+
+.game .players {
+  display: flex;
+  background-color: white;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.players .bord {
+  position: absolute;
+  width: 48%;
+  height: 83%;
+  background-color: var(--lightBlueColor);
+  border-radius: 5px;
+  transition: 0.2s ease transform;
+  z-index: 0;
+}
+
+.players .player {
+  position: relative;
+  padding: 15px 25px;
+  border-radius: 5px;
+  z-index: 1;
+  color: var(--lightBlueColor);
+  transition: 0.2s ease color;
+}
+
+.players .player.active {
+  color: white;
+}
+
+.players .player:first-child {
+  margin-right: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, 70px);
+  grid-gap: 10px;
+}
+
+.grid .disc {
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--lightBlueColor);
+  font-size: 50px;
+}
+
+.grid .disc.unclickable {
+  pointer-events: none;
+}
+
+.msgBox {
+  padding: 20px 10px;
+  background-color: white;
+  border-radius: 5px;
+  width: 300px;
+  max-width: 70%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.msgBox.winner {
+  z-index: 2;
+}
+.msgBox.noWinner {
+  z-index: 1;
+}
+
+.msgBox.active {
+  display: flex;
+  z-index: 4;
+}
+
+.msgBox button {
+ color: white;
+ background-color: var(--lightBlueColor);
+ padding: 8px 10px;
+ border-radius: 5px;
+ border: none;
+ outline: none;
+ margin-top: 15px;
+}
+
+.msgBox button:active {
+  background-color: var(--darkBlueColor);
+}

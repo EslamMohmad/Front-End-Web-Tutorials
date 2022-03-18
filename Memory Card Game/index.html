@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
+  <title>Memory Card Game</title>
+</head>
+<body>
+	<div class="container">
+	  <div class="start">
+	    <input type="text" class="player-name" placeholder="type your name"/>
+	    <button type="button" class="start-game">start game</button>
+	  </div>
+	  <div class="leader-board">
+	    <table>
+	      <caption>top players</caption>
+	      <thead>
+	        <tr>
+	          <th>rank</th>
+	          <th>name</th>
+	          <th>time</th>
+	          <th>wrongs</th>
+	        </tr>
+	      </thead>
+	      <tbody class="players-data"></tbody>
+	    </table>
+	  </div>
+	  <div class="app">
+	    <div class="top">
+	      <h1>player name : <span class="playerName"></span></h1>
+	      <h1 class="timer">00 : 00</h1>
+	      <h1>total wrongs : <span class="total-wrongs">0</span></h1>
+	    </div>
+	    <div class="game grid"></div>
+	  </div>
+	  <div class="result">
+	    <div class="content">
+	      <h1>hey <span class="playerName"></span><br/>you have complete the game in <span class="player-time"> </span><br/>and total-wrongs : <span class="total-wrongs"></span></h1>
+	    </div>
+	    <button type="button" class="play-again">play again</button>
+	  </div>
+	</div>
+	<script src="js/index.js"></script>
+</body>
+</html>
