@@ -35,6 +35,8 @@
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 5px lightgray;
+  position: relative;
+  overflow: hidden;
 }
 
 .app .top {
@@ -145,4 +147,64 @@
   color: white;
   background-color: var(--lightPurpuleColor);
   text-align: center;
+}
+
+.all-music {
+  position: absolute;
+  bottom: -350px;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  max-height: 300px;
+  height: 300px;
+  border-radius: 15px 15px 0 0;
+  border-top: 1px solid lightgray;
+  transition: .5s ease bottom;
+}
+
+.all-music.active {
+  bottom: 0;
+}
+
+.all-music .all-music-top {
+  display: flex;
+  justify-content: space-between;
+  padding:15px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.all-music-top i {
+  margin-right: 5px;
+}
+
+.all-music .songs {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+.songs .song {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.songs .song.active h5,
+.songs .song.active h6,
+.songs .song.active p {
+  color: var(--lightPurpuleColor);
+}
+
+.song h6 {
+  margin-top: 5px;
+  color: gray;
+}
+
+.song p {
+  font-size: 14px;
+  color: gray;
 }

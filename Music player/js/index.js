@@ -8,29 +8,111 @@ const bar = document.querySelector(".barWidth");
 const barParent = bar.parentElement;
 const totalBarWidth = parseInt(getComputedStyle(bar.parentElement).width);
 
+const moodBtn = document.querySelector(".mood");
+const musicListBtn = document.querySelector(".music-list");
+const songListData = document.querySelector(".songs");
+const closeMusicListBtn = document.querySelector(".fa-times");
+
 const classes = ["fa-caret-right", "fa-grip-lines-vertical"];
 const startCursorPoint = "3.5%";
+const moodObj = {
+  shuffle : "fa-random",
+  loopList : "fa-redo-alt",
+  loopSong : "fa-sync-alt"
+};
+const {shuffle, loopList, loopSong} = moodObj;
+const objKeys = Object.keys(moodObj);
+const objValues = Object.values(moodObj);
 
 let timing;
-let min = 0, sec = -1, currTime = 0;
+let min = 0, sec = -1, currTimePoint = 0;
 let soundState = false;
-
 let audioDuration;
 
+let currentMood = 1;
+let state = "";
+
+const getSongData = [];
+
+fetch("database/data.json")
+.then(res => res.json())
+.then(data => {
+  data.forEach(({artist, album, src}) => {
+    songListData.appendChild(setSongs(artist, album, src));
+  })
+  getSongData.push(...songListData.children);
+  
+  getSongData.forEach((element, i, arr) => {
+    element.addEventListener("click", function() {
+      arr.forEach(e => e.classList.remove("active"))
+      this.classList.add("active")
+    })
+  })
+  
+})
+
 run.addEventListener("click", function () {
-  if (!soundState) {
+  if (!soundState) { //check if song end or not
     checkRunBtnState(this);
   } else {
     resetSoundDetails();
-    checkRunBtnState(this)
+    checkRunBtnState(this);
   }
 })
 
 barParent.addEventListener("click", function (e) {
   const pointed = e.offsetX;
   bar.style.width = pointed + "px";
-  // console.log(Math.floor(audioDuration - totalBarWidth / pointed))
+  
+  const time  = Math.round(pointed / (totalBarWidth / audioDuration));
+  audio.currentTime = time;
+  sec = time;
+  currentTime.innerHTML = min + ":" + setCurrentTime(sec);
+  soundState = false;
 })
+
+moodBtn.addEventListener("click", function () {
+  if (currentMood < objKeys.length) {
+    const target = objKeys[currentMood];
+    const cls = this.firstElementChild.classList[1];
+    this.firstElementChild.classList.replace(cls, objValues[currentMood])
+    state = objValues[currentMood];
+    currentMood++;
+    currentMood === objKeys.length ? currentMood = 0 : false;
+  }
+})
+
+musicListBtn.addEventListener("click", function () {
+  const list = document.querySelector("." + this.getAttribute("data-list"));
+  list.classList.add("active");
+})
+
+closeMusicListBtn.addEventListener("click", function () {
+  const list = document.querySelector("." + this.getAttribute("data-list"));
+  list.classList.remove("active");
+})
+
+function setSongs(artist, album, src) {
+  const song = document.createElement("div");
+  const left = document.createElement("div");
+  const right = document.createElement("div");
+  
+  song.className = "song";
+  left.className = "left";
+  right.className = "right";
+  
+  left.innerHTML = `
+    <h5>${artist}</h5>
+    <h6>${album}</h6>
+  `;
+  
+  right.innerHTML = `<p>0:08</p>`;
+  
+  song.appendChild(left);
+  song.appendChild(right);
+  
+  return song;
+}
 
 function playMusic(ele, cls) {
   ele.classList.replace(cls[0], cls[1])
@@ -43,18 +125,17 @@ function pausedMusic(ele, cls) {
 }
 
 function setSoundDetailes() {
-  setAudioDuration();
-
   const total = Math.floor(audio.duration);
-  let curr = Math.floor(audio.currentTime);
+  const audioCurrentTime = Math.floor(audio.currentTime);
+  
+  //console.log(total + " => total", audioCurrentTime + " : current", sec + " : => second")
 
-  if (curr === total) {
-    soundState = true;
-    run.classList.replace(classes[1], classes[0]);
-    clearInterval(timing)
-    return;
-  };
-
+  state = moodBtn.firstElementChild.classList[1];
+  
+  //(audioCurrentTime + 1) => to assgin it to current, second starting in the same time
+  currTimePoint = (audioCurrentTime + 1) * (totalBarWidth / total);
+  bar.style.width = currTimePoint + "px";
+  
   if (sec < 59) {
     sec++;
     currentTime.innerHTML = min + ":" + setCurrentTime(sec);
@@ -63,16 +144,22 @@ function setSoundDetailes() {
     sec = 0;
     currentTime.innerHTML = min + ":" + setCurrentTime(sec);
   }
-  
-  currTime = sec * totalBarWidth / total;
-  bar.style.width = currTime + "px";
+
+  if (audioCurrentTime === total - 1) { //before ending
+    run.classList.replace(classes[1], classes[0]);
+    clearInterval(timing);
+    soundState = true;
+    checkStateMood();
+  }
 }
 setSoundDetailes()
 
 function resetSoundDetails() {
-  sec = 0, min = 0, currTime = startCursorPoint;
+  bar.style.transition = "none";
+  audio.currentTime = 0;
+  sec = 0, min = 0, currTimePoint = startCursorPoint;
   soundState = false;
-  bar.style.width = currTime;
+  bar.style.width = currTimePoint;
   currentTime.innerHTML = min + ":" + setCurrentTime(sec);
 }
 
@@ -89,14 +176,40 @@ function setAudioDuration() {
   }
 }
 
+setAudioDuration();
+
 function checkRunBtnState(element) {
-  if (element.classList.contains(classes[0])){
+  if (element.classList.contains(classes[0])) {
     playMusic(element, classes);
     timing = setInterval(() => {
+      bar.style.transition = "1s linear width";
       setSoundDetailes();
     }, 1000);
   } else {
     pausedMusic(element, classes);
     clearInterval(timing);
+  }
+}
+
+function shufflingMoodFunc() {
+  
+}
+
+function loopListMoodFunc() {
+  
+}
+
+function loopSongMoodFunc() {
+  resetSoundDetails();
+  checkRunBtnState(run);
+}
+
+function checkStateMood() {
+  if (state === shuffle) {
+    
+  } else if (state === loopList) {
+    
+  } else if (state === loopSong) {
+    loopSongMoodFunc();
   }
 }
