@@ -1,31 +1,57 @@
 [
   {
-    "artist" : "24kGoldn",
-    "album" : "Mood (Lyrics) ft. Iann Dior",
-    "src" : "sounds/bird.wav"
+    "songName" : "Beautiful Dream",
+    "artist" : "by Diego Nava",
+    "src" : "sounds/beautiful-dream.mp3",
+    "duration" : "1:37"
   }
   ,
   {
-    "artist" : "24kGoldn",
-    "album" : "Mood (Lyrics) ft. Iann Dior",
-    "src" : "sounds/bird.wav"
+    "songName" : "Forest Treasure",
+    "artist" : "by Alejandro Magaña (A. M.)",
+    "src" : "sounds/forest-treasure.mp3",
+    "duration" : "1:44"
   }
   ,
   {
-    "artist" : "24kGoldn",
-    "album" : "Mood (Lyrics) ft. Iann Dior",
-    "src" : "sounds/bird.wav"
+    "songName" : "Serene View",
+    "artist" : "by Arulo",
+    "src" : "sounds/serene-view.mp3",
+    "duration" : "1:54"
   }
   ,
   {
-    "artist" : "24kGoldn",
-    "album" : "Mood (Lyrics) ft. Iann Dior",
-    "src" : "sounds/bird.wav"
+    "songName" : "Woodfire by the Lake",
+    "artist" : "by Alejandro Magaña (A. M.)",
+    "src" : "sounds/woodfire-by-the-lake.mp3",
+    "duration" : "2:39"
   }
   ,
   {
-    "artist" : "24kGoldn",
-    "album" : "Mood (Lyrics) ft. Iann Dior",
-    "src" : "sounds/bird.wav"
+    "songName" : "Discover",
+    "artist" : "by Eugenio Mininni",
+    "src" : "sounds/discover.mp3",
+    "duration" : "2:24"
+  }
+  ,
+  {
+    "songName" : "Spirit in the Woods",
+    "artist" : "by Eugenio Mininni",
+    "src" : "sounds/spirit-in-the-woods.mp3",
+    "duration" : "1:53"
+  }
+  ,
+  {
+    "songName" : "Relax",
+    "artist" : "by Francisco Alvear",
+    "src" : "sounds/relax.mp3",
+    "duration" : "2:30"
+  }
+  ,
+  {
+    "songName" : "Serene Moments",
+    "artist" : "by Ahjay Stelino",
+    "src" : "sounds/serene-moments.mp3",
+    "duration" : "1:59"
   }
 ]

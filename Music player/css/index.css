@@ -21,7 +21,8 @@
 
 .container {
   height: 100vh;
-  background-image: linear-gradient(#fe71b4,#8b0b7c);
+  /* background-image: linear-gradient(#fe71b4,#8b0b7c); */
+  background-color: #141414;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,14 +70,14 @@
   margin: 20px 0;
 }
 
-.music h3 {
+.music h4 {
   font-weight: 300;
   text-align: center;
   color: gray;
   margin-top: 5px;
 }
 
-.music h1 {
+.music h3 {
   font-weight: 400;
   text-align: center;
 }
@@ -183,6 +184,19 @@
   padding: 0 15px;
   max-height: 250px;
   overflow-y: scroll;
+}
+
+.all-music .songs::-webkit-scrollbar {
+  width: 5px;
+}
+
+.all-music .songs::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.all-music .songs::-webkit-scrollbar-thumb {
+  background-color: var(--lightPurpuleColor);
+  border-radius: 15px;
 }
 
 .songs .song {

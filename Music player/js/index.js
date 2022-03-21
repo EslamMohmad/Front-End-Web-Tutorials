@@ -3,6 +3,8 @@ const run = document.querySelector(".run");
 const audio = document.querySelector(".audio");
 const totalTime = document.querySelector(".duration");
 const currentTime = document.querySelector(".currentTime");
+const song_name = document.querySelector(".songName");
+const Artist = document.querySelector(".artist");
 
 const bar = document.querySelector(".barWidth");
 const barParent = bar.parentElement;
@@ -32,24 +34,45 @@ let audioDuration;
 let currentMood = 1;
 let state = "";
 
+let currentSong = 0;
+
 const getSongData = [];
 
 fetch("database/data.json")
 .then(res => res.json())
 .then(data => {
-  data.forEach(({artist, album, src}) => {
-    songListData.appendChild(setSongs(artist, album, src));
+  data.forEach(({songName, artist, src, duration}) => {
+    songListData.appendChild(setSongs(songName, artist, src, duration));
   })
-  getSongData.push(...songListData.children);
-  
-  getSongData.forEach((element, i, arr) => {
+  getSongData.push(...data);
+
+  const songsList = Array.from(songListData.children);
+  songsList[currentSong].classList.add("active");
+  setSelectedSong(getSongData[currentSong])
+  setSoundDetailes();
+
+  songsList.forEach((element, i, arr) => {
     element.addEventListener("click", function() {
       arr.forEach(e => e.classList.remove("active"))
-      this.classList.add("active")
+      this.classList.add("active");
+      const songIndex = getSongData.findIndex(({songName}) => {
+        return songName === element.firstElementChild.children[0].innerHTML
+      });
+      setSelectedSong(getSongData[songIndex])
+      resetSoundDetails();
+      checkRunBtnState(run);
     })
   })
-  
 })
+
+function setSelectedSong(song) {
+  const {songName, artist, src, duration} = song;
+  audio.src = src;
+  totalTime.textContent = duration;
+  song_name.innerHTML = songName;
+  Artist.innerHTML = artist;
+}
+
 
 run.addEventListener("click", function () {
   if (!soundState) { //check if song end or not
@@ -92,7 +115,7 @@ closeMusicListBtn.addEventListener("click", function () {
   list.classList.remove("active");
 })
 
-function setSongs(artist, album, src) {
+function setSongs(songName, artist, src, duration) {
   const song = document.createElement("div");
   const left = document.createElement("div");
   const right = document.createElement("div");
@@ -102,11 +125,11 @@ function setSongs(artist, album, src) {
   right.className = "right";
   
   left.innerHTML = `
-    <h5>${artist}</h5>
-    <h6>${album}</h6>
+    <h5>${songName}</h5>
+    <h6>${artist}</h6>
   `;
   
-  right.innerHTML = `<p>0:08</p>`;
+  right.innerHTML = `<p>${duration}</p>`;
   
   song.appendChild(left);
   song.appendChild(right);
@@ -124,7 +147,7 @@ function pausedMusic(ele, cls) {
   audio.pause();
 }
 
-function setSoundDetailes() {
+function setSoundDetailes(song) {
   const total = Math.floor(audio.duration);
   const audioCurrentTime = Math.floor(audio.currentTime);
   
@@ -152,10 +175,8 @@ function setSoundDetailes() {
     checkStateMood();
   }
 }
-setSoundDetailes()
 
 function resetSoundDetails() {
-  bar.style.transition = "none";
   audio.currentTime = 0;
   sec = 0, min = 0, currTimePoint = startCursorPoint;
   soundState = false;
@@ -176,13 +197,12 @@ function setAudioDuration() {
   }
 }
 
-setAudioDuration();
+// setAudioDuration();
 
 function checkRunBtnState(element) {
   if (element.classList.contains(classes[0])) {
     playMusic(element, classes);
     timing = setInterval(() => {
-      bar.style.transition = "1s linear width";
       setSoundDetailes();
     }, 1000);
   } else {
