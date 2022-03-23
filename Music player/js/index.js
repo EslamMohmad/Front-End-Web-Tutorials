@@ -14,9 +14,10 @@ const moodBtn = document.querySelector(".mood");
 const musicListBtn = document.querySelector(".music-list");
 const songListData = document.querySelector(".songs");
 const closeMusicListBtn = document.querySelector(".fa-times");
+const controllsBtns = document.querySelectorAll(".select-N-P-song");
 
 const classes = ["fa-caret-right", "fa-grip-lines-vertical"];
-const startCursorPoint = "3.5%";
+const startCursorPoint = totalBarWidth * 3.5 / 100;
 const moodObj = {
   shuffle : "fa-random",
   loopList : "fa-redo-alt",
@@ -34,7 +35,8 @@ let audioDuration;
 let currentMood = 1;
 let state = "";
 
-let currentSong = 0;
+let slectedSongIndex = 0;
+let currentSongIndex = 0;
 
 const getSongData = [];
 
@@ -47,8 +49,8 @@ fetch("database/data.json")
   getSongData.push(...data);
 
   const songsList = Array.from(songListData.children);
-  songsList[currentSong].classList.add("active");
-  setSelectedSong(getSongData[currentSong])
+  songsList[slectedSongIndex].classList.add("active");
+  setSelectedSong(getSongData[slectedSongIndex])
   setSoundDetailes();
 
   songsList.forEach((element, i, arr) => {
@@ -60,19 +62,29 @@ fetch("database/data.json")
       });
       setSelectedSong(getSongData[songIndex])
       resetSoundDetails();
+      run.classList.replace(classes[1], classes[0])
       checkRunBtnState(run);
+      document.querySelector(".all-music").classList.remove("active");
     })
   })
 })
 
-function setSelectedSong(song) {
-  const {songName, artist, src, duration} = song;
-  audio.src = src;
-  totalTime.textContent = duration;
-  song_name.innerHTML = songName;
-  Artist.innerHTML = artist;
-}
+controllsBtns.forEach(element => {
+  element.addEventListener("click", function () {
+    if (this.classList.contains("forward")) {
+      if (currentSongIndex < getSongData.length) {
+        currentSongIndex++;
+        setSelectedSong(getSongData[currentSongIndex])
+        currentSongIndex === getSongData.length - 1 ? currentSongIndex = -1 : false;
+      }
+      resetSoundDetails();
+      run.classList.replace(classes[1], classes[0])
+      checkRunBtnState(run);
+    } else if (this.classList.contains("backward")) {
 
+    }
+  })
+})
 
 run.addEventListener("click", function () {
   if (!soundState) { //check if song end or not
@@ -114,6 +126,15 @@ closeMusicListBtn.addEventListener("click", function () {
   const list = document.querySelector("." + this.getAttribute("data-list"));
   list.classList.remove("active");
 })
+
+function setSelectedSong(song) {
+  const {songName, artist, src, duration} = song;
+  audio.src = src;
+  totalTime.textContent = duration;
+  song_name.innerHTML = songName;
+  Artist.innerHTML = artist;
+}
+
 
 function setSongs(songName, artist, src, duration) {
   const song = document.createElement("div");
@@ -178,10 +199,11 @@ function setSoundDetailes(song) {
 
 function resetSoundDetails() {
   audio.currentTime = 0;
-  sec = 0, min = 0, currTimePoint = startCursorPoint;
+  sec = 0, min = 0, currTimePoint = 0 + "px";
   soundState = false;
   bar.style.width = currTimePoint;
   currentTime.innerHTML = min + ":" + setCurrentTime(sec);
+  clearInterval(timing)
 }
 
 function setCurrentTime(num) {

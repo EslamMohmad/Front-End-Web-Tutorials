@@ -96,7 +96,7 @@
 }
 
 .music .musicBar .bar .barWidth {
-  width: 3.5%;
+  width: 0%;
   height: 100%;
   background-color: var(--lightPurpuleColor);
   position: relative;
