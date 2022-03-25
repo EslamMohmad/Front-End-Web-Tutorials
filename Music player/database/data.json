@@ -3,55 +3,63 @@
     "songName" : "Beautiful Dream",
     "artist" : "by Diego Nava",
     "src" : "sounds/beautiful-dream.mp3",
-    "duration" : "1:37"
+    "duration" : "1:37",
+    "img" : "sounds/imgs/img1.jpg"
   }
   ,
   {
     "songName" : "Forest Treasure",
     "artist" : "by Alejandro Magaña (A. M.)",
     "src" : "sounds/forest-treasure.mp3",
-    "duration" : "1:44"
+    "duration" : "1:44",
+    "img" : "sounds/imgs/img2.jpg"
   }
   ,
   {
     "songName" : "Serene View",
     "artist" : "by Arulo",
     "src" : "sounds/serene-view.mp3",
-    "duration" : "1:54"
+    "duration" : "1:54",
+    "img" : "sounds/imgs/img3.jpg"
   }
   ,
   {
     "songName" : "Woodfire by the Lake",
     "artist" : "by Alejandro Magaña (A. M.)",
     "src" : "sounds/woodfire-by-the-lake.mp3",
-    "duration" : "2:39"
+    "duration" : "2:39",
+    "img" : "sounds/imgs/img4.jpg"
   }
   ,
   {
     "songName" : "Discover",
     "artist" : "by Eugenio Mininni",
     "src" : "sounds/discover.mp3",
-    "duration" : "2:24"
+    "duration" : "2:24",
+    "img" : "sounds/imgs/img5.jpg"
   }
   ,
   {
     "songName" : "Spirit in the Woods",
     "artist" : "by Eugenio Mininni",
     "src" : "sounds/spirit-in-the-woods.mp3",
-    "duration" : "1:53"
+    "duration" : "1:53",
+    "img" : "sounds/imgs/img6.jpg"
   }
   ,
   {
     "songName" : "Relax",
     "artist" : "by Francisco Alvear",
     "src" : "sounds/relax.mp3",
-    "duration" : "2:30"
+    "duration" : "2:30",
+    "img" : "sounds/imgs/img7.jpg"
   }
   ,
   {
     "songName" : "Serene Moments",
     "artist" : "by Ahjay Stelino",
     "src" : "sounds/serene-moments.mp3",
-    "duration" : "1:59"
+    "duration" : "1:59",
+    "img" : "sounds/imgs/img8.jpg"
   }
 ]

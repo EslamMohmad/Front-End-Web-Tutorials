@@ -5,6 +5,7 @@ const totalTime = document.querySelector(".duration");
 const currentTime = document.querySelector(".currentTime");
 const song_name = document.querySelector(".songName");
 const Artist = document.querySelector(".artist");
+const songImg = document.querySelector(".songImg");
 
 const bar = document.querySelector(".barWidth");
 const barParent = bar.parentElement;
@@ -17,28 +18,29 @@ const closeMusicListBtn = document.querySelector(".fa-times");
 const controllsBtns = document.querySelectorAll(".select-N-P-song");
 
 const classes = ["fa-caret-right", "fa-grip-lines-vertical"];
-const startCursorPoint = totalBarWidth * 3.5 / 100;
 const moodObj = {
   shuffle : "fa-random",
-  loopList : "fa-redo-alt",
+  loopList : "fa-list-check",
   loopSong : "fa-sync-alt"
 };
 const {shuffle, loopList, loopSong} = moodObj;
-const objKeys = Object.keys(moodObj);
-const objValues = Object.values(moodObj);
+const objMoodKeys = Object.keys(moodObj);
+const objMoodValues = Object.values(moodObj);
 
-let timing;
-let min = 0, sec = -1, currTimePoint = 0;
-let soundState = false;
-let audioDuration;
+let timing; //setInterval
+let min = 0, sec = 0, currTimePoint = 0;
+let soundState = false; //state of song (on & off)
+let audioDuration; //get audio duration 
 
-let currentMood = 1;
-let state = "";
+let currentMood = 1; // mood class index
+let state = ""; //get state of moode
 
 let slectedSongIndex = 0;
 let currentSongIndex = 0;
 
-const getSongData = [];
+const getSongData = []; //get json data from fetch api
+const randomSong = []; //set random indexes in array
+
 
 fetch("database/data.json")
 .then(res => res.json())
@@ -51,7 +53,6 @@ fetch("database/data.json")
   const songsList = Array.from(songListData.children);
   songsList[slectedSongIndex].classList.add("active");
   setSelectedSong(getSongData[slectedSongIndex])
-  setSoundDetailes();
 
   songsList.forEach((element, i, arr) => {
     element.addEventListener("click", function() {
@@ -60,6 +61,7 @@ fetch("database/data.json")
       const songIndex = getSongData.findIndex(({songName}) => {
         return songName === element.firstElementChild.children[0].innerHTML
       });
+      currentSongIndex = songIndex;
       setSelectedSong(getSongData[songIndex])
       resetSoundDetails();
       run.classList.replace(classes[1], classes[0])
@@ -72,17 +74,11 @@ fetch("database/data.json")
 controllsBtns.forEach(element => {
   element.addEventListener("click", function () {
     if (this.classList.contains("forward")) {
-      if (currentSongIndex < getSongData.length) {
-        currentSongIndex++;
-        setSelectedSong(getSongData[currentSongIndex])
-        currentSongIndex === getSongData.length - 1 ? currentSongIndex = -1 : false;
-      }
-      resetSoundDetails();
-      run.classList.replace(classes[1], classes[0])
-      checkRunBtnState(run);
+      currentSongIndex < getSongData.length - 1 ? currentSongIndex++ : currentSongIndex = 0;
     } else if (this.classList.contains("backward")) {
-
+      currentSongIndex === 0 ? currentSongIndex = getSongData.length - 1 : currentSongIndex--;
     }
+    songRenderFunc();
   })
 })
 
@@ -98,22 +94,21 @@ run.addEventListener("click", function () {
 barParent.addEventListener("click", function (e) {
   const pointed = e.offsetX;
   bar.style.width = pointed + "px";
-  
   const time  = Math.round(pointed / (totalBarWidth / audioDuration));
   audio.currentTime = time;
-  sec = time;
-  currentTime.innerHTML = min + ":" + setCurrentTime(sec);
+  sec = time % 60;
+  min = parseInt((time / 60).toString().split(".")[0]);
+  currentTime.innerHTML = min + ":" + addZero(sec)
   soundState = false;
 })
 
 moodBtn.addEventListener("click", function () {
-  if (currentMood < objKeys.length) {
-    const target = objKeys[currentMood];
-    const cls = this.firstElementChild.classList[1];
-    this.firstElementChild.classList.replace(cls, objValues[currentMood])
-    state = objValues[currentMood];
+  if (currentMood < objMoodKeys.length) {
+    const clsIndex = this.firstElementChild.classList[1];
+    this.firstElementChild.classList.replace(clsIndex, objMoodValues[currentMood])
+    state = objMoodValues[currentMood];
     currentMood++;
-    currentMood === objKeys.length ? currentMood = 0 : false;
+    currentMood === objMoodKeys.length ? currentMood = 0 : false;
   }
 })
 
@@ -127,12 +122,28 @@ closeMusicListBtn.addEventListener("click", function () {
   list.classList.remove("active");
 })
 
+audio.onloadedmetadata = function () {
+  audioDuration = Math.floor(this.duration);
+}
+
 function setSelectedSong(song) {
-  const {songName, artist, src, duration} = song;
+  const {songName, artist, src, duration, img} = song;
   audio.src = src;
+  songImg.src = img;
   totalTime.textContent = duration;
   song_name.innerHTML = songName;
   Artist.innerHTML = artist;
+}
+
+function songRenderFunc() {
+  [...songListData.children].forEach(e => e.classList.remove("active"));
+
+  songListData.children[currentSongIndex].classList.add("active");
+  setSelectedSong(getSongData[currentSongIndex])
+
+  resetSoundDetails();
+  run.classList.replace(classes[1], classes[0])
+  checkRunBtnState(run);
 }
 
 
@@ -168,33 +179,28 @@ function pausedMusic(ele, cls) {
   audio.pause();
 }
 
-function setSoundDetailes(song) {
+function setSoundDetailes() {
   const total = Math.floor(audio.duration);
   const audioCurrentTime = Math.floor(audio.currentTime);
-  
   //console.log(total + " => total", audioCurrentTime + " : current", sec + " : => second")
 
   state = moodBtn.firstElementChild.classList[1];
   
-  //(audioCurrentTime + 1) => to assgin it to current, second starting in the same time
-  currTimePoint = (audioCurrentTime + 1) * (totalBarWidth / total);
-  bar.style.width = currTimePoint + "px";
-  
-  if (sec < 59) {
-    sec++;
-    currentTime.innerHTML = min + ":" + setCurrentTime(sec);
-  } else {
-    min++;
-    sec = 0;
-    currentTime.innerHTML = min + ":" + setCurrentTime(sec);
-  }
+  sec = audioCurrentTime % 60;
+  min = parseInt((audioCurrentTime / 60).toString().split(".")[0]);
+  currentTime.innerHTML = min + ":" + addZero(sec);
 
-  if (audioCurrentTime === total - 1) { //before ending
+  if (audioCurrentTime === total) {
     run.classList.replace(classes[1], classes[0]);
     clearInterval(timing);
     soundState = true;
     checkStateMood();
+    return;
   }
+
+  //(audioCurrentTime + 1) => to assgin it to current, second starting in the same time
+  currTimePoint = (audioCurrentTime + 1) * (totalBarWidth / total);
+  bar.style.width = currTimePoint + "px";
 }
 
 function resetSoundDetails() {
@@ -202,24 +208,13 @@ function resetSoundDetails() {
   sec = 0, min = 0, currTimePoint = 0 + "px";
   soundState = false;
   bar.style.width = currTimePoint;
-  currentTime.innerHTML = min + ":" + setCurrentTime(sec);
+  currentTime.innerHTML = min + ":" + addZero(sec);
   clearInterval(timing)
 }
 
-function setCurrentTime(num) {
+function addZero(num) {
   return num < 10 ? "0" + num : num
 }
-
-function setAudioDuration() {
-  audio.onloadedmetadata = function () {
-    audioDuration = Math.floor(this.duration);
-    this.duration < 60
-    ? totalTime.innerHTML = "0:0" + Math.floor(this.duration)
-    : totalTime.innerHTML = Math.floor(this.duration)
-  }
-}
-
-// setAudioDuration();
 
 function checkRunBtnState(element) {
   if (element.classList.contains(classes[0])) {
@@ -234,11 +229,20 @@ function checkRunBtnState(element) {
 }
 
 function shufflingMoodFunc() {
+  [...songListData.children].forEach((e, i) => {randomSong.push(i); e.classList.remove("active")})
+  randomSong.sort(() => Math.random() - 0.5); //generate random array of indexes
   
+  songListData.children[randomSong[currentSongIndex]].classList.add("active");
+  setSelectedSong(getSongData[randomSong[currentSongIndex]])
+
+  resetSoundDetails();
+  run.classList.replace(classes[1], classes[0])
+  checkRunBtnState(run);
 }
 
 function loopListMoodFunc() {
-  
+  currentSongIndex < getSongData.length - 1 ? currentSongIndex++ : currentSongIndex = 0;
+  songRenderFunc();
 }
 
 function loopSongMoodFunc() {
@@ -248,9 +252,9 @@ function loopSongMoodFunc() {
 
 function checkStateMood() {
   if (state === shuffle) {
-    
+    shufflingMoodFunc()
   } else if (state === loopList) {
-    
+    loopListMoodFunc()
   } else if (state === loopSong) {
     loopSongMoodFunc();
   }

@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="#"><!--to remove font awesome error-->
   <link rel="stylesheet" href="icons/css/all.min.css"/>
   <link rel="stylesheet" href="css/index.css">
-  <title>Music player </title>
+  <title>Music player</title>
 </head>
 <body>
 	<div class="container">
@@ -21,7 +22,7 @@
 	    </div>
 	    <div class="music">
 	      <div class="img">
-	        <img src="imgs/img1.jpg"/>
+	        <img src="imgs/img1.jpg" class="songImg"/>
 	      </div>
 	      <div class="details">
 	        <h3 class="songName"></h3>
@@ -35,13 +36,13 @@
 				  <span class="cursor"></span>
 			  </div>
 	        </div>
-			<span class="time currentTime"></span>
+			<span class="time currentTime">0:00</span>
 			<span class="time duration"></span>
 	      </div>
 	    </div>
 	    <div class="foot">
 	      <div class="mood">
-	        <i class="fas fa-random"></i>
+	        <i class="fa-solid fa-random fas"></i>
 	      </div>
 	      <div class="music-controlls">
 	        <i class="fas fa-step-backward backward select-N-P-song"></i>

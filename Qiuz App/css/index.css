@@ -107,6 +107,7 @@ p {font-size: 15px}
   max-width: 0;
   height: 2px;
   background-color: var(--darkBlueColor);
+  transition: 1s linear max-width;
 }
 
 .quiz {

@@ -95,6 +95,7 @@ function renderItems(index, selectors, randomArr) {
 }
 
 nextQuetion.addEventListener("click", function () {
+  timeBar.style.transition = "none";
   clearInterval(timing);
   if (currentIndex < questions.length - 1) {
     resetTimeFunc();
@@ -115,11 +116,12 @@ nextQuetion.addEventListener("click", function () {
 
 gameOptions.forEach(element => {
   element.addEventListener("click", function () {
-    resetTimeFunc();
-    resetValues();
-    clearInterval(timing);
-    result.classList.remove("show");
+    
     if (this.classList.contains("replay")) {
+      resetTimeFunc();
+      resetValues();
+      clearInterval(timing);
+      result.classList.remove("show");
       replayGameFunc();
     } else if (this.classList.contains("quit")) {
       //quitGameFunc();
@@ -174,6 +176,7 @@ function choiceAnswerAuto() {
 function time() {
   const totalBarWidth = timeBar.parentElement.offsetWidth;
   const bar = totalBarWidth / reminTime;
+  timeBar.style.transition = "1s linear max-width";
   if (time_left > 0) {
     time_left--;
     timeLeft.innerHTML = time_left;
