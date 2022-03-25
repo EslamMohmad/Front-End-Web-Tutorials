@@ -13,6 +13,7 @@ Type In URL Bar
 - Parallax Effect
 - Portfolio
 - Qiuz App
+- Music player
 - Slider
 - Tic Tac Toe Game
 - ToDo
