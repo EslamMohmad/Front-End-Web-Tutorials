@@ -87,5 +87,3 @@ tasks.addEventListener("click", function (e) {
     completedTasks.innerHTML = length;
   }
 });
-
-console.log(window.localStorage)

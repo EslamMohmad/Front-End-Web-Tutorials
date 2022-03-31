@@ -39,14 +39,13 @@ let slectedSongIndex = 0;
 let currentSongIndex = 0;
 
 const getSongData = []; //get json data from fetch api
-const randomSong = []; //set random indexes in array
-
+let randomSong; //set random indexes in array
 
 fetch("database/data.json")
 .then(res => res.json())
 .then(data => {
-  data.forEach(({songName, artist, src, duration}) => {
-    songListData.appendChild(setSongs(songName, artist, src, duration));
+  data.forEach(({songName, artist, duration, img}) => {
+    songListData.appendChild(setSongs(songName, artist, duration, img));
   })
   getSongData.push(...data);
 
@@ -59,7 +58,7 @@ fetch("database/data.json")
       arr.forEach(e => e.classList.remove("active"))
       this.classList.add("active");
       const songIndex = getSongData.findIndex(({songName}) => {
-        return songName === element.firstElementChild.children[0].innerHTML
+        return songName === element.firstElementChild.lastElementChild.children[0].innerHTML;
       });
       currentSongIndex = songIndex;
       setSelectedSong(getSongData[songIndex])
@@ -146,8 +145,7 @@ function songRenderFunc() {
   checkRunBtnState(run);
 }
 
-
-function setSongs(songName, artist, src, duration) {
+function setSongs(songName, artist, duration, img) {
   const song = document.createElement("div");
   const left = document.createElement("div");
   const right = document.createElement("div");
@@ -157,8 +155,11 @@ function setSongs(songName, artist, src, duration) {
   right.className = "right";
   
   left.innerHTML = `
-    <h5>${songName}</h5>
-    <h6>${artist}</h6>
+    <div class="img"><img src="${img}"/></div>
+    <div class="text">
+      <h5>${songName}</h5>
+      <h6>${artist}</h6>
+    </div>
   `;
   
   right.innerHTML = `<p>${duration}</p>`;
@@ -229,11 +230,14 @@ function checkRunBtnState(element) {
 }
 
 function shufflingMoodFunc() {
-  [...songListData.children].forEach((e, i) => {randomSong.push(i); e.classList.remove("active")})
-  randomSong.sort(() => Math.random() - 0.5); //generate random array of indexes
+  [...songListData.children].forEach((e, i) => {e.classList.remove("active")});
   
-  songListData.children[randomSong[currentSongIndex]].classList.add("active");
-  setSelectedSong(getSongData[randomSong[currentSongIndex]])
+  randomSong = Math.floor(Math.random() * getSongData.length);//generate random index
+
+  songListData.children[randomSong].classList.add("active");
+  setSelectedSong(getSongData[randomSong])
+
+  currentSongIndex = randomSong;
 
   resetSoundDetails();
   run.classList.replace(classes[1], classes[0])

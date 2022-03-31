@@ -11,19 +11,10 @@ const timer = document.querySelector(".timer");
 
 const store = {};
 
-const imgs = [
-  "🌎","🌎",
-  "👾","👾",
-  "⭐","⭐",
-  "🍰","🍰",
-  "🔥","🔥",
-  "🌼","🌼",
-  "🪐","🪐",
-  "🪶","🪶"
-];
-
 const cards = [];
 const filteredArr = [];
+
+const imgsSrcArr = [];
 
 let deley;
 let taken_time;
@@ -34,12 +25,32 @@ let stopTime;
 
 const timing = 800;
 
+fetch("db/data.json")
+.then(res => res.json())
+.then(data => {
+  imgsSrcArr.push(...data);
+
+  imgsSrcArr.forEach(e => {
+    game.innerHTML += `
+      <div class="card">
+        <div class="front">?</div>
+        <div class="back">
+          <img src="${e}"/>
+        </div>
+      </div>
+    `
+  })
+  cards.push(...game.children);
+});
+
+
+
+
 startBtn.addEventListener("click", function () {
   const parent = this.parentElement;
   const playerInput = this.previousElementSibling;
   
   if (playerInput.value) {
-    getRandomContent();
     parent.classList.add("hide");
     app.classList.add("show");
     leaderBoard.classList.add("hide");
@@ -49,24 +60,25 @@ startBtn.addEventListener("click", function () {
     playerInput.value = "";
   }
   
-  cards.push(...game.children);
   cards.forEach((e, i, arr) => {
-  e.addEventListener("click", function () {
-    const target = this.classList;
-    if (filteredArr.length < 2 && !target.contains("active")) {
-      target.add("active");
-      filteredArr.push(this);
-      filteredArr.length === 2 && checkSameCards(filteredArr);
-    }
-    
-    const filterActiveCards = [...arr].filter(e => !e.classList.contains("active")).length;
-    if (!filterActiveCards) {
-      clearInterval(taken_time);
-      result.classList.add("show");
-      document.querySelector(".player-time").innerHTML = timer.innerHTML;
-    }
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    !e.style.order ? e.style.order = randomIndex : false;
+    e.addEventListener("click", function () {
+      const target = this.classList;
+      if (filteredArr.length < 2 && !target.contains("active")) {
+        target.add("active");
+        filteredArr.push(this);
+        filteredArr.length === 2 && checkSameCards(filteredArr);
+      }
+      
+      const filterActiveCards = [...arr].filter(e => !e.classList.contains("active")).length;
+      if (!filterActiveCards) {
+        clearInterval(taken_time);
+        result.classList.add("show");
+        document.querySelector(".player-time").innerHTML = timer.innerHTML;
+      }
+    });
   });
-});
 });
 
 playAgainBtn.addEventListener("click", function () {
@@ -82,14 +94,6 @@ playAgainBtn.addEventListener("click", function () {
   timer.innerHTML = "00 : 00";
   totalWrongs.forEach(e => e.innerHTML = total_wrongs);
 });
-
-function getRandomContent() {
-  const randomImgsArr = imgs.sort(() => Math.random() - 0.5);
-  
-  randomImgsArr.forEach((e) => {
-    createGridSystem(e);
-  });
-}
 
 function createGridSystem(img) {
   const card = document.createElement("div");
@@ -109,8 +113,8 @@ function createGridSystem(img) {
 }
 
 function checkSameCards(arr) {
-  const firstCard = arr[0].lastElementChild.innerHTML;
-  const secondCard = arr[1].lastElementChild.innerHTML;
+  const firstCard = arr[0].lastElementChild.children[0].src;
+  const secondCard = arr[1].lastElementChild.children[0].src;
   
   if (firstCard !== secondCard) {
     deley = setTimeout(removeClassTime, timing);

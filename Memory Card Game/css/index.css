@@ -28,12 +28,13 @@
 }
 
 .start {
-  display: flex;
+  display: flex;/**/
   flex-direction: column;
   align-items: center;
   padding: 10px;
   background-color: white;
   border-radius: 3px;
+  margin-bottom: 40px;
 }
 
 .start.hide {
@@ -72,7 +73,7 @@
   max-height: 230px;
   overflow-y: scroll;
   padding: 10px;
-  display: block;
+  display: block;/**/
 }
 
 .leader-board.hide {
@@ -95,8 +96,8 @@ th, td {
 
 .app {
   width: 90%;
-  max-width: 1000px;
-  display: none;
+  max-width: 900px;
+  display: none;/**/
   flex-direction: column;
 }
 
@@ -116,7 +117,7 @@ th, td {
   margin-top: 20px;
   border-radius: 3px;
   display: grid;
-  grid-template-rows: repeat(4, 120px);
+  grid-template-rows: repeat(4, 150px);
   grid-template-columns: repeat(4, 1fr);
   background-color: white;
   gap: 10px;
@@ -146,12 +147,19 @@ th, td {
 
 .card .front {
   z-index: 2;
+  font-size: 50px;
 }
 
 .card .back {
   z-index: 1;
   transform: rotateY(-180deg);
   
+}
+
+.card .back img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .card.active .back {
