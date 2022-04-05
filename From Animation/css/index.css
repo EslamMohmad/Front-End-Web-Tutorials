@@ -1,0 +1,256 @@
+@import "../icons/css/all.min.css";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-transform: capitalize;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --firstColor: #ff416c;
+  --secoundColor: #ff4b2b;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  width: 850px;
+  position: relative;
+  height: 520px;
+  border-radius: 40px;
+  box-shadow: 0px 0px 50px 5px lightgray;
+  overflow: hidden;
+  display: flex;
+}
+
+@media (max-width: 910px) {
+  .main {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+  }
+}
+
+.main .form-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  background-color: white;
+  transition: 1s ease transform;
+}
+
+.main.sing-up .form-container.sing-in-form {
+  animation: singInHide 1s ease 1 forwards;
+}
+
+.main.sing-in .form-container.sing-up-form {
+  animation: singUpHide 1s ease 1 forwards;
+}
+
+@keyframes singUpHide {
+  90% {
+    transform: translateX(-100%);
+  }
+
+  99% {
+    z-index: -1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    z-index: -1;
+  }
+}
+
+@keyframes singInHide {
+  90% {
+    transform: translateX(100%);
+  }
+
+  99% {
+    z-index: -1;
+  }
+
+  100% {
+    transform: translateX(100%);
+    z-index: -1;
+  }
+}
+
+.main .form-container > *:not(:last-child),
+.main .form-container form > *:not(:last-child) {
+  margin-bottom: 18px;
+}
+
+.main .form-container h1 {
+  font-size: 37px;
+  text-align: center;
+}
+
+.main .form-container ul li {
+  list-style: none;
+  display: inline-block;
+  width: 43px;
+  height: 43px;
+  line-height: 43px;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.main .form-container ul li:not(:last-child) {
+  margin-right: 10px;
+}
+
+.main .form-container > p {
+  font-size: 13px;
+  font-weight: lighter;
+  color: #919191;
+  text-align: center;
+  width: 90%;
+}
+
+.main .form-container form {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.main .form-container form input {
+  padding: 13px;
+  background-color: #eeeeee;
+  border: none;
+  outline: none;
+  border-radius: 1px;
+}
+
+.main .form-container form input:focus {
+  outline: 1px solid gray;
+}
+
+.main .form-container form p {
+  color: #4d4d4d;
+  text-align: center;
+  font-size: 15px;
+}
+
+.main .form-container form button {
+  margin: auto;
+  width: 50%;
+  width: 140px;
+  height: 45px;
+  color: white;
+  background-image: linear-gradient(
+    30deg,
+    var(--firstColor),
+    var(--secoundColor)
+  );
+  border-radius: 20px;
+  border: 1px solid white;
+  outline: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.main .sliding-board {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  z-index: 3;
+  overflow: hidden;
+  color: white;
+  transition: 1s ease transform;
+}
+
+.main .sliding-board .wide-borad {
+  width: 200%;
+  height: 100%;
+  background-image: linear-gradient(
+    90deg,
+    var(--firstColor),
+    var(--secoundColor)
+  );
+  display: flex;
+  position: relative;
+  transition: 1s ease transform;
+}
+
+.main .sliding-board.sliding {
+  transform: translateX(100%);
+}
+
+.main .sliding-board.sliding .wide-borad {
+  transform: translateX(-50%);
+}
+
+.main .sliding-board.sliding .wide-borad .board.sing-up {
+  transform: translateX(0px);
+}
+
+.main .sliding-board.sliding .wide-borad .board.sing-in {
+  transform: translateX(-100px);
+}
+
+.main .sliding-board .wide-borad .board {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: 1s ease transform;
+}
+
+.main .sliding-board .wide-borad .board.sing-up {
+  right: 0;
+  transform: translateX(100px);
+}
+
+.main .sliding-board .wide-borad .board > * {
+  margin-bottom: 20px;
+}
+
+.main .sliding-board .wide-borad .board h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+.main .sliding-board .wide-borad .board p {
+  width: 65%;
+  text-align: center;
+  line-height: 1.47em;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+.main .sliding-board .wide-borad .board button {
+  width: 140px;
+  height: 42px;
+  color: white;
+  background-color: transparent;
+  border-radius: 20px;
+  border: 1px solid white;
+  outline: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
