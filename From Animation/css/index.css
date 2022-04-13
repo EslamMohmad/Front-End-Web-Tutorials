@@ -48,18 +48,24 @@
   flex-direction: column;
   position: relative;
   background-color: white;
-  transition: 1s ease transform;
+  transition: 1s ease transform, 1s ease visibility, 0.2s ease opacity 0.25s;
 }
 
 .main.sing-up .form-container.sing-in-form {
-  animation: singInHide 1s ease 1 forwards;
+  /* animation: singInHide 1s ease 1 forwards; */
+  transform: translateX(50%);
+  visibility: hidden;
+  opacity: 0;
 }
 
 .main.sing-in .form-container.sing-up-form {
-  animation: singUpHide 1s ease 1 forwards;
+  /* animation: singUpHide 1s ease 1 forwards; */
+  transform: translateX(-50%);
+  visibility: hidden;
+  opacity: 0;
 }
 
-@keyframes singUpHide {
+/* @keyframes singUpHide {
   90% {
     transform: translateX(-100%);
   }
@@ -87,7 +93,7 @@
     transform: translateX(100%);
     z-index: -1;
   }
-}
+} */
 
 .main .form-container > *:not(:last-child),
 .main .form-container form > *:not(:last-child) {
