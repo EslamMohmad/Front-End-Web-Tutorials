@@ -6,7 +6,7 @@ I write code in my spare time
 
 Type In URL Bar
 
-> eslam1998-dev.github.io/Front-End-Web-Tutorials/ProjectName/index.html
+> EslamMohmad.github.io/Front-End-Web-Tutorials/ProjectName/index.html
 
 - Animated Circle Text
 - Calculator
